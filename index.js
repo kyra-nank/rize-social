@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send({ msg: "get guests from monogodb" });
+  res.send({ msg: "hey ella whats up" });
 });
 
 app.post("/", (req, res) => {
