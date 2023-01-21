@@ -11,7 +11,7 @@ app.post("/", (req, res) => {
 });
 
 app.get("/add-guest", (req, res) => {
-  res.send({ msg: "serve the add guest form" });
+  res.send({ msg: "serve add guest form" });
 });
 
 app.post("/add-guest", (req, res) => {
