@@ -3,7 +3,7 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 module.exports = function (app) {
   app.use(
-    ["/add-guest"],
+    ["/add-guest", "/guest-list", "/rsvp"],
     createProxyMiddleware({
       target: "http://localhost:5000",
     })

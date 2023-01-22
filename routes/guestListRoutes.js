@@ -4,13 +4,13 @@ const Guest = mongoose.model('guests');
 
 module.exports = (app) => {
 
-  app.get("/", async (req, res) => {
+  app.get("/guest-list", async (req, res) => {
     // get all the records from db & send to frontend
     const guests = await Guest.find({});
     res.send(guests);
   });
 
-  app.post("/", async (req, res) => {
+  app.post("/rsvp", async (req, res) => {
     // set rsvp to true if the pin is correct - assuming no one misenters a pin that corr. to another user
     const inputPin = "13282"
 
