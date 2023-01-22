@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 import Header from './Header';
 
@@ -16,21 +18,27 @@ const AttendeeProfile = () => <h2>AttendeeProfile</h2>
 
 
 
-const App = () => {
-  return (
-    <div style={styles.divStyles}>
-      <div style={styles.blackLayer}>
-        <BrowserRouter>
-          <div>
-            <Header />
-            <Route exact path="/" component={Home} />
-            <Route path="/add-guests" component={AddGuest} />
-            <Footer />
-          </div>
-        </BrowserRouter>
+class App extends Component {
+  componentDidMount() {
+    this.props.fetchGuests();
+  }
+
+  render() {
+    return (
+      <div style={styles.divStyles}>
+        <div style={styles.blackLayer}>
+          <BrowserRouter>
+            <div>
+              <Header />
+              <Route exact path="/" component={Home} />
+              <Route path="/add-guests" component={AddGuest} />
+              <Footer />
+            </div>
+          </BrowserRouter>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 };
 
 const styles = {
@@ -45,4 +53,4 @@ const styles = {
   }
 }
 
-export default App;
+export default connect(null, actions)(App);

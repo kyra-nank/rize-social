@@ -4,10 +4,6 @@ const Guest = mongoose.model('guests');
 
 module.exports = (app) => {
 
-  app.get("/add-guest", (req, res) => {
-    res.send({ msg: "serve add guest form" });
-  });
-
   app.post("/add-guest", async (req, res) => {
     // add guest to db from form inputs
     const inputPin = "13282";
