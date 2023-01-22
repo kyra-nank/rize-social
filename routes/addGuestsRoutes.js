@@ -8,7 +8,7 @@ module.exports = (app) => {
     res.send({ msg: "serve add guest form" });
   });
 
-  app.post("/add-guest", (req, res) => {
+  app.post("/add-guest", async (req, res) => {
     // add guest to db from form inputs
     const inputPin = "13282";
     const name = "Kyra Nankivell";
@@ -17,20 +17,18 @@ module.exports = (app) => {
     const instagram = "https://www.instagram.com/kyra_nank/";
 
     // avoid duplicate records
-    Guest.findOne({ pin: inputPin })
-      .then((foundGuest) => {
-        if (!foundGuest) {
-          // guest does not exist in db
-          new Guest({
-            pin: inputPin,
-            rsvp: false,
-            name: name,
-            image: image,
-            linkedIn: linkedIn,
-            instagram: instagram
-          }).save()
-        }
-      })
+    const foundGuest = await Guest.findOne({ pin: inputPin });
+    if (!foundGuest) {
+      // guest does not exist in db
+      await new Guest({
+        pin: inputPin,
+        rsvp: false,
+        name: name,
+        image: image,
+        linkedIn: linkedIn,
+        instagram: instagram
+      }).save()
+    }
   });
 
 };
