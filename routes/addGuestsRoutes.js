@@ -14,7 +14,7 @@ module.exports = (app) => {
           // guest does not exist in db
           new Guest({
             pin: "13282",
-            rsvp: true,
+            rsvp: false,
             name: "Kyra Nankivell",
             image: "https://media.istockphoto.com/id/1208585275/photo/profile-of-a-serene-young-woman.jpg?s=612x612&w=0&k=20&c=GU_NrBvXEiKL8GDe6MIVmx_M3xzwMKzjJ27RI0rHmw8=",
             linkedIn: "https://www.linkedin.com/in/kyranank/",
