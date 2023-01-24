@@ -4,15 +4,13 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 import Header from './Header';
+import Home from './Home';
+import Footer from './Footer'
 
 import background from '../assets/app-background.jpeg';
 
-const Footer = () => <h2>Footer</h2>
-const Home = () => <h2>Home</h2>
 const AddGuest = () => <h2>AddGuest</h2>
 const SearchBar = () => <h2>SearchBar</h2>
-const ProfileList = () => <h2>ProfileList</h2>
-const Profile = () => <h2>Profile</h2>
 const InviteeProfile = () => <h2>InviteeProfile</h2>
 const AttendeeProfile = () => <h2>AttendeeProfile</h2>
 

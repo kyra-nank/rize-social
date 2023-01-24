@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import guestListReducer from './guestListReducer';
+import { guestListReducer } from './guestListReducer';
 // import guestReducer from './guestReducer';
 
 export default combineReducers({
