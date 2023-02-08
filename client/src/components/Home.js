@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 
 import ProfileList from './ProfileList';
 
@@ -13,8 +13,4 @@ function Home({ guestList }) {
   )
 }
 
-function mapStateToProps({ guestList }) {
-  return { guestList };
-}
-
-export default connect(mapStateToProps)(Home);
+export default Home;
