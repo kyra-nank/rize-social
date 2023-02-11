@@ -4,6 +4,7 @@ import { FETCH_GUESTS } from './types';
 export function fetchGuests() {
   return async (dispatch) => {
     try {
+      console.log("trying to fetch guest list")
       const res = await axios.get('/guest-list');
       dispatch({ type: FETCH_GUESTS, payload: res.data })
     } catch (error) {
