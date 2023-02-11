@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter, Route } from 'react-router-dom';
 import { fetchGuests } from '../actions';
@@ -16,14 +16,18 @@ function App() {
   console.log("this is the guestList")
   console.log(guestList)
 
-  const [dispatched, setDispatched] = useState(false);
+  // const [dispatched, setDispatched] = useState(false);
+
+  // useEffect(() => {
+  //   if (!dispatched) {
+  //     dispatch(fetchGuests());
+  //     setDispatched(true);
+  //   }
+  // }, [dispatched, dispatch]);
 
   useEffect(() => {
-    if (!dispatched) {
-      dispatch(fetchGuests());
-      setDispatched(true);
-    }
-  }, [dispatched, dispatch]);
+    dispatch(fetchGuests())
+  }, [])
 
   return (
     <div>

@@ -9,4 +9,4 @@ export const guestListReducer = (state = null, action) => {
     default:
       return state;
   }
-}
+} 
