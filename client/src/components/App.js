@@ -6,8 +6,9 @@ import { fetchGuests } from '../actions';
 import Header from './Header';
 import Home from './Home';
 import Footer from './Footer'
+import AddGuest from './AddGuest';
 
-const AddGuest = () => <h2>AddGuest</h2>
+import background from '../assets/app-background.jpeg';
 
 function App() {
   const dispatch = useDispatch();
@@ -16,22 +17,13 @@ function App() {
   console.log("this is the guestList")
   console.log(guestList)
 
-  // const [dispatched, setDispatched] = useState(false);
-
-  // useEffect(() => {
-  //   if (!dispatched) {
-  //     dispatch(fetchGuests());
-  //     setDispatched(true);
-  //   }
-  // }, [dispatched, dispatch]);
-
   useEffect(() => {
     dispatch(fetchGuests())
   }, [])
 
   return (
-    <div>
-      <div>
+    <div style={styles.divStyles}>
+      <div style={styles.blackLayer}>
         <BrowserRouter>
           <div>
             <Header />
@@ -44,72 +36,19 @@ function App() {
     </div>
   )
 
-  // return (
-  //   <div>
-  //     <p>Hi</p>
-  //     <ul>
-  //       {guestList.map(profile => (
-  //         <li key={profile._id}>{profile.pin}</li>
-  //       ))}
-  //     </ul>
-  //   </div>
-  // )
+}
 
+const styles = {
+  divStyles: {
+    backgroundImage: `url(${background})`,
+    backgroundPosition: "center",
+    height: "100%"
+  },
+  blackLayer: {
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
+    height: "100%",
+    padding: "20px"
+  }
 }
 
 export default App;
-
-
-
-// import React, { Component } from 'react';
-// import { BrowserRouter, Route } from 'react-router-dom';
-// import { connect } from 'react-redux';
-// import * as actions from '../actions'
-
-// import Header from './Header';
-// import Home from './Home';
-// import Footer from './Footer'
-
-// import background from '../assets/app-background.jpeg';
-
-// const AddGuest = () => <h2>AddGuest</h2>
-// // const SearchBar = () => <h2>SearchBar</h2>
-// // const InviteeProfile = () => <h2>InviteeProfile</h2>
-// // const AttendeeProfile = () => <h2>AttendeeProfile</h2>
-
-// class App extends Component {
-//   componentDidMount() {
-//     this.props.fetchGuests();
-//   }
-
-//   render() {
-//     return (
-//       <div style={styles.divStyles}>
-//         <div style={styles.blackLayer}>
-//           <BrowserRouter>
-//             <div>
-//               <Header />
-//               <Route exact path="/" component={Home} />
-//               <Route path="/add-guests" component={AddGuest} />
-//               <Footer />
-//             </div>
-//           </BrowserRouter>
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-
-// const styles = {
-//   divStyles: {
-//     backgroundImage: `url(${background})`,
-//     backgroundPosition: "center",
-//     height: "100%"
-//   },
-//   blackLayer: {
-//     backgroundColor: "rgba(0, 0, 0, 0.75)",
-//     height: "100%"
-//   }
-// }
-
-// export default connect(null, actions)(App);
