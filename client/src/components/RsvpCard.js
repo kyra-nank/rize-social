@@ -11,7 +11,7 @@ function RsvpCard({ name, image, linkedIn, instagram }) {
           <div className="col-2">
             <img src={image} alt={`${name}'s profile pic`} style={styles.avatarStyles} />
           </div>
-          <div className="col-10">
+          <div className="col-10" style={styles.textContainerStyles}>
             <h5 className="card-title">{name}</h5>
             <p style={styles.pStyles}>
               <a href={instagram} style={styles.linkStyles} className="card-link text-black" target="_blank" rel="noopener noreferrer">Instagram</a>, <a href={linkedIn} style={styles.linkStyles} className="card-link text-black" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -41,6 +41,9 @@ const styles = {
     height: "64px",
     objectFit: "cover",
     borderRadius: "50%"
+  },
+  textContainerStyles: {
+    paddingLeft: "25px"
   },
   linkStyles: {
     margin: 0

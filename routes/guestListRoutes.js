@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const Guest = mongoose.model('guests');
 
 module.exports = (app) => {
@@ -12,19 +13,21 @@ module.exports = (app) => {
 
   app.post("/rsvp", async (req, res) => {
     // set rsvp to true if the pin is correct - assuming no one misenters a pin that corr. to another user
-    const inputPin = "13282"
+    console.log("the req in the /rsvp server route is")
+    console.log(req)
+    const inputPin = req.body;
 
     // find user with the entered pin & change rsvp to true
     const doc = await Guest.updateOne({ pin: inputPin }, { rsvp: true });
     if (doc.modifiedCount == 1) {
       // user rsvped
-      res.send({ msg: "success - you have been rsvped!" })
+      res.send(true)
     } else {
       // no docs modified - pin not found
       // since there is no way for someone to try rsvping again, no need to handle the case where the record is already set to true
-      res.send({ msg: "incorrect - please try again" })
+      res.send(false)
     }
 
   });
 
-}
+}  

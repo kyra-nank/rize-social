@@ -1,18 +1,28 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { rsvpGuest } from '../actions';
 
 function DefaultCard({ pin, name, image, linkedIn, instagram }) {
+
+  const dispatch = useDispatch();
 
   const [flip, setFlip] = useState(false);
   const [enteredPin, setEnteredPin] = useState("");
 
   function onInputChange(event) {
     setEnteredPin(event.target.value);
-    console.log(enteredPin)
   }
 
-  function onSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
+
     // validate the pin
+    console.log("the pin being validated is " + enteredPin)
+    const isRsvped = dispatch(rsvpGuest(enteredPin))
+
+    console.log("the isRsvped inside default card is")
+    console.log(isRsvped)
+
   }
 
   function onCardClick(event) {
@@ -32,7 +42,7 @@ function DefaultCard({ pin, name, image, linkedIn, instagram }) {
             <div className="col-2">
               <img src={image} alt={`${name}'s profile pic`} style={styles.avatarStyles} />
             </div>
-            <div className="col-10">
+            <div className="col-10" style={styles.textContainerStyles}>
               <h5 className="card-title" style={styles.nameStyles}>{name}</h5>
               <p style={styles.pStyles}>
                 <a href={instagram} style={styles.linkStyles} className="card-link" target="_blank" rel="noopener noreferrer" onClick={preventFlipOnClick}>Instagram</a>, <a href={linkedIn} style={styles.linkStyles} className="card-link" target="_blank" rel="noopener noreferrer" onClick={preventFlipOnClick}>LinkedIn</a>
@@ -46,22 +56,32 @@ function DefaultCard({ pin, name, image, linkedIn, instagram }) {
     return (
       <div onClick={onCardClick} className="card border-0 shadow" style={styles.formStyles}>
         <div className="card-body text-black container">
-          <form onSubmit={onSubmit}>
-            <div className="row">
-              <div className="col-9">
-                <input className="form-control" value={enteredPin} onChange={onInputChange} placeholder="Enter pin" onClick={preventFlipOnClick} />
-              </div>
-              <div className="col-3">
-                <button className="btn btn-link" type="submit" style={styles.buttonStyles}>RSVP</button>
-              </div>
+
+          <div className="row">
+            <div className="col-9">
+              <input type="text" className="form-control" value={enteredPin} onChange={onInputChange} placeholder="Enter pin" onClick={preventFlipOnClick} />
             </div>
-          </form>
+            <div className="col-3">
+              <button className="btn btn-link" style={styles.buttonStyles} onClick={handleSubmit}>RSVP</button>
+            </div>
+          </div>
+
         </div>
       </div>
     )
   }
 }
 
+{/* <form onSubmit={handleSubmit}>
+<div className="row">
+  <div className="col-9">
+    <input name="pin" className="form-control" value={enteredPin} onChange={onInputChange} placeholder="Enter pin" onClick={preventFlipOnClick} />
+  </div>
+  <div className="col-3">
+    <button className="btn btn-link" type="submit" style={styles.buttonStyles}>RSVP</button>
+  </div>
+</div>
+</form> */}
 
 const styles = {
   cardStyles: {
@@ -90,16 +110,19 @@ const styles = {
     objectFit: "cover",
     borderRadius: "50%"
   },
+  textContainerStyles: {
+    paddingLeft: "25px"
+  },
   nameStyles: {
-    color: "#A88E35"
+    color: "white"
   },
   linkStyles: {
     margin: 0,
-    color: "white"
+    color: "#A88E35"
   },
   pStyles: {
     margin: 0,
-    color: "white"
+    color: "#A88E35"
   },
   buttonStyles: {
     color: "#A88E35",

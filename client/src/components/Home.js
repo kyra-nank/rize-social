@@ -11,7 +11,6 @@ function Home({ guestList }) {
   } else {
     return (
       <div>
-        Home
         <ProfileList guestList={guestList} />
       </div>
     )

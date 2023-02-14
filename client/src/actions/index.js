@@ -1,16 +1,28 @@
 import axios from 'axios';
-import { FETCH_GUESTS } from './types';
+import { FETCH_GUESTS, RSVP } from './types';
 
 export function fetchGuests() {
   return async (dispatch) => {
     try {
-      console.log("trying to fetch guest list")
+      // console.log("trying to fetch guest list")
       const res = await axios.get('/guest-list');
       dispatch({ type: FETCH_GUESTS, payload: res.data })
     } catch (error) {
       console.log(error)
     }
 
+  }
+}
+
+export function rsvpGuest(inputPin) {
+  return async (dispatch) => {
+    try {
+      console.log("trying to check rsvp")
+      const res = await axios.post('/rsvp', inputPin);
+      dispatch({ type: RSVP, payload: res.data })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
