@@ -1,18 +1,19 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from "react-redux";
-import { BrowserRouter, Route } from 'react-router-dom';
-import { fetchGuests } from '../actions';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from "react-redux"
+import { BrowserRouter, Route } from 'react-router-dom'
+import { fetchGuests } from '../actions'
 
-import Header from './Header';
-import Home from './Home';
+import Header from './Header'
+import Home from './Home'
 import Footer from './Footer'
-import AddGuest from './AddGuest';
+import AddGuest from './AddGuest'
 
-import background from '../assets/app-background.jpeg';
+import background from '../assets/app-background.jpeg'
 
 function App() {
-  const dispatch = useDispatch();
-  const guestList = useSelector(state => state.guestList);
+  const dispatch = useDispatch()
+  const guestList = useSelector(state => state.guestList)
 
   // console.log("this is the guestList")
   // console.log(guestList)
@@ -20,7 +21,6 @@ function App() {
   useEffect(() => {
     dispatch(fetchGuests())
   }, [])
-
   return (
     <div style={styles.divStyles}>
       <div style={styles.blackLayer}>
@@ -51,4 +51,4 @@ const styles = {
   }
 }
 
-export default App;
+export default App

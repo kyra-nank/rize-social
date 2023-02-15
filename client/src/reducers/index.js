@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
-import { guestListReducer } from './guestListReducer';
+import { combineReducers } from 'redux'
+import { addGuestReducer, guestListReducer } from './guestListReducer'
 // import guestReducer from './guestReducer';
 
 export default combineReducers({
-  guestList: guestListReducer
-  // guestInfo: guestReducer
-});
+  guestList: guestListReducer,
+  addGuest: addGuestReducer
+})

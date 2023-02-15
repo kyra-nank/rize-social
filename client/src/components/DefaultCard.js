@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from "react-redux";
-import { rsvpGuest } from '../actions';
+import React, { useState } from 'react'
+import { useDispatch } from "react-redux"
+import { rsvpGuest } from '../actions'
 
 function DefaultCard({ pin, name, image, linkedIn, instagram }) {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const [flip, setFlip] = useState(false);
-  const [enteredPin, setEnteredPin] = useState("");
+  const [flip, setFlip] = useState(false)
+  const [enteredPin, setEnteredPin] = useState("")
 
   function onInputChange(event) {
-    setEnteredPin(event.target.value);
+    setEnteredPin(event.target.value)
   }
 
   function handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
 
     // validate the pin
     console.log("the pin being validated is " + enteredPin)
-    const isRsvped = dispatch(rsvpGuest(enteredPin))
+    const payload = { pin: enteredPin }
+    const isRsvped = dispatch(rsvpGuest(payload))
 
     console.log("the isRsvped inside default card is")
     console.log(isRsvped)
@@ -26,8 +27,8 @@ function DefaultCard({ pin, name, image, linkedIn, instagram }) {
   }
 
   function onCardClick(event) {
-    setFlip(!flip);
-    setEnteredPin("");
+    setFlip(!flip)
+    setEnteredPin("")
   }
 
   function preventFlipOnClick(event) {
@@ -130,4 +131,4 @@ const styles = {
   }
 }
 
-export default DefaultCard;
+export default DefaultCard

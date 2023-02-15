@@ -1,11 +1,44 @@
-import React, { useState } from 'react';
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { addGuest } from '../actions'
 function AddGuest() {
 
-  const [name, setName] = useState("");
-  const [image, setImage] = useState("");
-  const [linkedIn, setLinkedIn] = useState("");
-  const [instagram, setInstagram] = useState("");
-  const [pin, setPin] = useState("");
+  const dispatch = useDispatch()
+  const guestList = useSelector(state => state.addGuest)
+
+  const [name, setName] = useState("")
+  const [image, setImage] = useState("")
+  const [linkedIn, setLinkedIn] = useState("")
+  const [instagram, setInstagram] = useState("")
+  const [pin, setPin] = useState("")
+  const [file, setfile] = useState(null)
+  const [error, setError] = useState(null)
+  const [isSucess, setisSucess] = useState(false)
+  const [response, setResponse] = useState(null)
+  const [isForm, setisForm] = useState(null)
+
+  useEffect(() => {
+    setResponse(guestList)
+  }, [guestList])
+
+  useEffect(() => {
+    setTimeout(() => {
+      setResponse(null)
+    }, 2000)
+  }, [response])
+
+  useEffect(() => {
+    setTimeout(() => {
+      setisSucess(false)
+    }, 2000)
+  }, [isSucess])
+
+  useEffect(() => {
+    setisForm(null)
+  }, [name, image, linkedIn, instagram, pin])
+
+
 
   function onNameChange(e) {
     setName(e.target.value)
@@ -27,19 +60,85 @@ function AddGuest() {
     setPin(e.target.value)
   }
 
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    try {
+      if (name !== "" && image !== "" && linkedIn !== '' && instagram !== "" && pin !== "") {
+        const payload = {
+          name,
+          image,
+          linkedIn,
+          instagram,
+          pin,
+        }
+        dispatch(addGuest(payload))
+      } else {
+        setisForm("Please Filled all the Details")
+      }
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
+  const handleFileUpload = async (e) => {
+    e.preventDefault()
+    try {
+      if (file.type !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+        setError("Only for Excel Sheet is valid")
+        return
+      } else {
+        const formData = new FormData()
+        formData.append('file', file)
+
+        const response = await axios.post('http://localhost:5000/upload/file', formData)
+        if (response.data.status === 201) {
+          setisSucess(true)
+        }
+      }
+    } catch (error) {
+      console.log('error on the file is here', error)
+    }
+  }
+
   return (
     <div>
       Add guest form
-      <form action="/add-guest" method="post">
+      <div style={styles.uploder}>
+        <input type="file" style={styles.input_main} onChange={(e) => { setError(null); setfile(e.target.files[0]) }} />
+        {error !== null ? <p style={styles.error_data}>{error}</p> : null}
+        {isSucess ? <p style={styles.sucess_data}>File Uploaded and Data SucessFully Saved</p> : null}
+        <button onClick={handleFileUpload}>Upload</button>
+      </div>
+      <form >
         <input required name="name" className="form-control top" type="text" value={name} onChange={onNameChange} placeholder="Name" />
         <input required name="image" className="form-control middle" type="text" value={image} onChange={onImageChange} placeholder="Image" />
         <input required name="linkedIn" className="form-control middle" type="text" value={linkedIn} onChange={onLinkedInChange} placeholder="LinkedIn" />
         <input required name="instagram" className="form-control middle" type="text" value={instagram} onChange={onInstagramChange} placeholder="Instagram" />
         <input required name="pin" className="form-control bottom" type="text" value={pin} onChange={onPinChange} placeholder="Pin" />
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button class="btn btn-primary" type='submit' onClick={handleSubmit}>Submit</button>
       </form>
+      {isForm !== null ? <p style={{ color: 'red', fontSize: '18px', marginTop: '20px' }}>{isForm}</p> : null}
+      {response !== null ? <p style={{ color: response?.status === 201 ? 'green' : 'red', fontSize: '18px', marginTop: '20px' }}>{response?.message}</p> : null}
     </div>
   )
 }
-
-export default AddGuest;
+const styles = {
+  uploder: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  input_main: {
+    color: '#fff'
+  },
+  sucess_data: {
+    marginBottom: '0',
+    color: 'green',
+    marginRight: '8px'
+  },
+  error_data: {
+    color: 'red',
+    marginBottom: '0',
+    marginRight: '8px'
+  }
+}
+export default AddGuest
