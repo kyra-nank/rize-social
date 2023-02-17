@@ -21,7 +21,6 @@ function DefaultCard({ pin, name, image, linkedIn, instagram }) {
     const payload = { pin: enteredPin }
     const isRsvped = dispatch(rsvpGuest(payload))
 
-    console.log("the isRsvped inside default card is")
     console.log(isRsvped)
 
   }

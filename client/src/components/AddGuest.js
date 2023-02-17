@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addGuest } from '../actions'
+import { useHistory } from "react-router-dom"
+import { addGuest, fetchGuests } from '../actions'
 function AddGuest() {
 
   const dispatch = useDispatch()
@@ -18,8 +20,14 @@ function AddGuest() {
   const [response, setResponse] = useState(null)
   const [isForm, setisForm] = useState(null)
 
+  const history = useHistory()
+
   useEffect(() => {
     setResponse(guestList)
+    if (guestList?.status === 201) {
+      dispatch(fetchGuests())
+      history.push("/")
+    }
   }, [guestList])
 
   useEffect(() => {
@@ -28,11 +36,6 @@ function AddGuest() {
     }, 2000)
   }, [response])
 
-  useEffect(() => {
-    setTimeout(() => {
-      setisSucess(false)
-    }, 2000)
-  }, [isSucess])
 
   useEffect(() => {
     setisForm(null)
@@ -90,9 +93,14 @@ function AddGuest() {
         const formData = new FormData()
         formData.append('file', file)
 
-        const response = await axios.post('http://localhost:5000/upload/file', formData)
+        const response = await axios.post('/upload/file', formData)
         if (response.data.status === 201) {
           setisSucess(true)
+          setTimeout(async () => {
+            await dispatch(fetchGuests())
+            history.push("/")
+
+          }, 2000)
         }
       }
     } catch (error) {
@@ -106,7 +114,7 @@ function AddGuest() {
       <div style={styles.uploder}>
         <input type="file" style={styles.input_main} onChange={(e) => { setError(null); setfile(e.target.files[0]) }} />
         {error !== null ? <p style={styles.error_data}>{error}</p> : null}
-        {isSucess ? <p style={styles.sucess_data}>File Uploaded and Data SucessFully Saved</p> : null}
+        {isSucess ? <p style={styles.sucess_data}>File Uploaded.</p> : null}
         <button onClick={handleFileUpload}>Upload</button>
       </div>
       <form >

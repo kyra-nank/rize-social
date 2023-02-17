@@ -15,8 +15,6 @@ function App() {
   const dispatch = useDispatch()
   const guestList = useSelector(state => state.guestList)
 
-  // console.log("this is the guestList")
-  // console.log(guestList)
 
   useEffect(() => {
     dispatch(fetchGuests())

@@ -20,6 +20,7 @@ export function rsvpGuest(inputPin) {
       console.log("trying to check rsvp")
       const res = await axios.post('/rsvp', inputPin)
       dispatch({ type: RSVP, payload: res.data })
+      return window.location.reload()
     } catch (error) {
       console.log(error)
     }

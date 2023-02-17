@@ -11,10 +11,10 @@ mongoose.connect(keys.mongoURI)
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(FileCSV)
 
 require('./routes/addGuestsRoutes')(app)
 require('./routes/guestListRoutes')(app)
+require('./routes/fileRoutes')(app)
 
 
 const PORT = process.env.PORT || 5000

@@ -1,15 +1,15 @@
 // fixes the issue with having local vs. heroku links
 
-const { createProxyMiddleware } = require("http-proxy-middleware");
+const { createProxyMiddleware } = require("http-proxy-middleware")
 
 module.exports = function (app) {
   app.use(
-    ["/add-guest", "/guest-list", "/rsvp"],
+    ["/add-guest", "/guest-list", "/rsvp", "/upload/file"],
     createProxyMiddleware({
       target: "http://localhost:5000",
     })
-  );
-};
+  )
+}
 
 // DOESNT WORK?? (below)
 // const proxy = require('http-proxy-middleware');
