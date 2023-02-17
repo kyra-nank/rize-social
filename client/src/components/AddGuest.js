@@ -100,7 +100,7 @@ function AddGuest() {
             await dispatch(fetchGuests())
             history.push("/")
 
-          }, 2000)
+          }, 3400)
         }
       }
     } catch (error) {
