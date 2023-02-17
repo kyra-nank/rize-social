@@ -72,17 +72,6 @@ function DefaultCard({ pin, name, image, linkedIn, instagram }) {
   }
 }
 
-{/* <form onSubmit={handleSubmit}>
-<div className="row">
-  <div className="col-9">
-    <input name="pin" className="form-control" value={enteredPin} onChange={onInputChange} placeholder="Enter pin" onClick={preventFlipOnClick} />
-  </div>
-  <div className="col-3">
-    <button className="btn btn-link" type="submit" style={styles.buttonStyles}>RSVP</button>
-  </div>
-</div>
-</form> */}
-
 const styles = {
   cardStyles: {
     backgroundColor: "black",
